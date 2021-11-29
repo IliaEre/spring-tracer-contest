@@ -1,0 +1,7 @@
+.idea
+./gradle
+stock-service/.gradle/*
+stock-async-service/.gradle/*
+stock-grpc-service/.gradle/*
+
+
