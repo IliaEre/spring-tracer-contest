@@ -5,6 +5,7 @@ plugins {
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     kotlin("jvm") version "1.6.0"
     kotlin("plugin.spring") version "1.6.0"
+    id ("org.flywaydb.flyway") version "8.0.2"
 }
 
 group = "com.epam.contest"
@@ -24,6 +25,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
+    implementation("org.flywaydb:flyway-core:8.0.1")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
@@ -51,4 +53,10 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+flyway {
+    url = "jdbc:postgresql://localhost:5432/postgres"
+    user = "postgres"
+    password = "pwd"
 }

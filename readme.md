@@ -5,6 +5,12 @@
 ### main goal: save uniq request uuid
 #### version 0.0.1-SNAPSHOT
 
+# TODO LIST:
+1. common sample [_]  
+2. added web integration and kafka integration for common sample [_]  
+3. async with Kafka sample [_]  
+4. grps sample [_]
+
 `
 Kotlin, Spring Boot, WebFlux, Kafka, gRpc, 
 ELK, Tracer with spring sleuth, Jaeger.
@@ -22,6 +28,9 @@ ELK, Tracer with spring sleuth, Jaeger.
 3) stock-grpc-service
 `Spring grpc service`
 
+4) compose:
+   Docker compose with [postgres here](https://github.com/IliaEre/composes/blob/main/db/postgres-compose.yaml)
+
 
 --- 
 ## How to run and what we need:
@@ -31,3 +40,4 @@ ELK, Tracer with spring sleuth, Jaeger.
 ---
 useful material:
 1. [Spring sleuth](https://spring.io/projects/spring-cloud-sleuth)
+2. [Kafka compose](https://github.com/conduktor/kafka-stack-docker-compose/blob/master/zk-single-kafka-single.yml)

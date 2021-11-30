@@ -4,3 +4,17 @@ server:
 spring:
   main:
     banner-mode: off
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/postgres?schema=public
+    username: postgres
+    password: pwd
+  flyway:
+    enabled: true
+    url: "jdbc:postgresql://localhost:5432/postgres"
+    user: postgres
+    password: pwd
+    baseline-on-migrate: true
+
+logging:
+  level:
+    org.springframework.r2dbc: DEBUG

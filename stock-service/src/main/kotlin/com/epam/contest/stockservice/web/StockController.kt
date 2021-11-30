@@ -17,6 +17,7 @@ class StockController(
     fun findOne(@PathVariable name: String) = stockService.findOne(name)
 
     @PostMapping
-    fun create(stock: Stock) = stockService.create(stock)
+    fun create(@RequestBody stock: Stock) =
+        stockService.create(stock)
 
 }
