@@ -10,7 +10,7 @@ services:
     environment:
       POSTGRES_PASSWORD: pwd
     ports:
-      - 5432:5432
+      - "5432:5432"
 
   zoo1:
     image: confluentinc/cp-zookeeper:6.2.1

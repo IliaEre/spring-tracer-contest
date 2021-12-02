@@ -9,7 +9,8 @@
 1. common sample [_]  
 2. added web integration and kafka integration for common sample [_]  
 3. async with Kafka sample [_]  
-4. grps sample [_]
+4. gRps sample [_]
+5. multithreading and coroutines 
 
 `
 Kotlin, Spring Boot, WebFlux, Kafka, gRpc, 
@@ -31,6 +32,8 @@ ELK, Tracer with spring sleuth, Jaeger.
 4) compose:
    Docker compose with [postgres here](https://github.com/IliaEre/composes/blob/main/db/postgres-compose.yaml)
 
+5) integration-service:
+`API web integration, multithreading`
 
 --- 
 ## How to run and what we need:

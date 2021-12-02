@@ -1,6 +1,9 @@
 server:
   port: 9001
 
+app:
+  topic: tempTopic
+
 spring:
   main:
     banner-mode: off
@@ -14,6 +17,11 @@ spring:
     user: postgres
     password: pwd
     baseline-on-migrate: true
+  kafka:
+    bootstrap-servers: localhost:9200
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonDeserializer
 
 logging:
   level:
