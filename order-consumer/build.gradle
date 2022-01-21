@@ -1,0 +1,63 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.3'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'org.springframework.experimental.aot' version '0.11.1'
+    id 'org.jetbrains.kotlin.jvm' version '1.6.10'
+}
+
+group = 'com.ere.pkc'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    maven { url 'https://repo.spring.io/release' }
+    mavenCentral()
+}
+
+ext {
+    set('springCloudVersion', "2021.0.0")
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-actuator:2.6.2'
+    implementation 'org.springframework.cloud:spring-cloud-sleuth-zipkin:3.1.0'
+    implementation 'org.springframework.cloud:spring-cloud-starter-sleuth:3.1.0'
+    implementation 'org.springframework.kafka:spring-kafka:2.7.6'
+    runtimeOnly 'io.micrometer:micrometer-registry-prometheus:1.8.2'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor:2.6.2'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.6.2'
+    testImplementation 'org.springframework.kafka:spring-kafka-test:2.7.6'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.0'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+bootBuildImage {
+    builder = 'paketobuildpacks/builder:tiny'
+    environment = ['BP_NATIVE_IMAGE': 'true']
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
