@@ -4,24 +4,10 @@
 
 #### version 0.0.2-SNAPSHOT
 
-# TODO LIST:
-1. common sample [_]  
-2. added web integration and kafka integration for common sample [_]  
-3. async with Kafka sample [_]  
-4. gRps sample [_]
-5. multithreading and coroutines 
-
-
 `
 Kotlin, Java, Spring Boot, Web, WebFlux, Kafka, 
 ELK, Tracer with spring sleuth, Zipkin.
 `
-
----
-
-
---- 
-
 
 ---
 useful material:
