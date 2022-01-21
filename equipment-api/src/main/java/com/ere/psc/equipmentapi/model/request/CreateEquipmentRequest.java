@@ -1,17 +1,11 @@
-package com.ere.psc.equipmentapi.model.dto;
+package com.ere.psc.equipmentapi.model.request;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.NotNull;
 
-@Document("equipment")
-public record EquipmentDto(
-        @Id String id,
+public record CreateEquipmentRequest(
         @NotNull String uuid,
-        String code,
+        @NotNull String code,
         String name,
-        String size,
-        String quality,
-        String status
-) implements EquipmentMarker {
-}
+        @NotNull String size,
+        String quality
+) {}

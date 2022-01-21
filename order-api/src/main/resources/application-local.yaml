@@ -1,28 +1,40 @@
 server:
-  port: 8090
+  port: 9096
+
+integration:
+  web:
+    url: 'http://localhost:9095'
 
 spring:
-  application:
-    name: order-api
-  main:
-    banner-mode: off
+#region: db
   data:
     mongodb:
-      database: dfd
+      database: skiclub
       host: localhost
       port: 27017
-
-
-springdoc:
-  packages-to-scan: com.ere.psc
-  paths-to-match: '/v1/**'
-
-apidoc:
-  title: '@project.name@'
-  description: '@project.description@'
-  version: '@project.version@'
-
-
-# todo kafka
-# todo zipkin
-# todo mongodb
+#endregion
+#region: trace
+  zipkin:
+    base-url: http://localhost:9411/
+    service:
+      name: '@project.name@'
+#endregion
+#region: kafka
+  kafka:
+    admin:
+      fail-fast: true
+    bootstrap-servers:
+      – http://localhost:29092
+      – http://localhost:39092
+    producer:
+      client-id: order-api
+      acks: all
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      retries: 50
+      bootstrap-servers:
+        – http://localhost:29092
+        – http://localhost:39092
+    template:
+      default-topic: ski-orders
+#endregion

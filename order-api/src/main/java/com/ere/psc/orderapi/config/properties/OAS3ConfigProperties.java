@@ -1,4 +1,4 @@
-package com.ere.psc.orderapi.config;
+package com.ere.psc.orderapi.config.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

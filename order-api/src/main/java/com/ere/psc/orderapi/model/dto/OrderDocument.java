@@ -1,18 +1,18 @@
-package com.ere.psc.orderapi.model;
+package com.ere.psc.orderapi.model.dto;
 
+import com.ere.psc.orderapi.model.UserInfo;
 import com.ere.psc.orderapi.model.enums.RentType;
-import jdk.jfr.Timestamp;
 import org.springframework.data.annotation.Id;
-
+import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.NotNull;
-import java.time.OffsetDateTime;
 import java.util.List;
 
-public record Order(
+@Document("orders")
+public record OrderDocument(
         @Id String orderId,
         @NotNull UserInfo userInfo,
         String skiPassId,
         RentType rentType,
-        List<Equipment> equipment,
-        @Timestamp OffsetDateTime timeStamp
+        List<String> equipment,
+        String timeStamp
 ) {}
