@@ -5,8 +5,7 @@
 #### version 0.0.2-SNAPSHOT
 
 `
-Kotlin, Java, Spring Boot, Web, WebFlux, Kafka, 
-ELK, Tracer with spring sleuth, Zipkin.
+Java, Spring Boot, Web, WebFlux, Kafka, ELK, Tracer with spring sleuth, Zipkin.
 `
 
 ---
