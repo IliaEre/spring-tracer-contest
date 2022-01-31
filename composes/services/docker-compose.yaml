@@ -4,9 +4,9 @@ services:
   equipment-api:
       image: equipment-api
       ports:
-          - 9095:9095
+          - 7001:7001
       environment:      
-        - "SPRING_PROFILES_ACTIVE=local"
+        - "SPRING_PROFILES_ACTIVE=docker"
 
   order-api:
       image: order-api
