@@ -1,4 +1,4 @@
-version: '3.1'
+version: '3.2'
 
 services:
   zipkin:
@@ -10,41 +10,42 @@ services:
       - 9411:9411
 
   elasticsearch:
-      image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.2
-      container_name: elasticsearch
-      environment:
-          - node.name=es01
-          - cluster.name=docker-cluster
-          - discovery.type=single-node
-          - bootstrap.memory_lock=true
-          - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      ulimits:
-          memlock:
-              soft: -1
-              hard: -1
-          nofile:
-              soft: 65536
-              hard: 65536
-      ports:
-          - 9200:9200
-          - 9300:9300
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.2.0
+    ports:
+      - "9200:9200"
+    environment:
+      - "discovery.type=single-node"
+    volumes:
+      - ./elasticsearch/data:/usr/share/elasticsearch/data:rw              # Persistence data
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.2.0
+    ports:
+      - "25826:25826"
+      - "5044:5044"
+    volumes:
+      - ./logstash/pipeline:/usr/share/logstash/pipeline:ro                # Pipeline configuration
+    restart: on-failure
+    depends_on:
+      - elasticsearch
 
   kibana:
-      image: docker.elastic.co/kibana/kibana-oss:7.10.2
-      container_name: kibana
-      environment:
-          - ELASTICSEARCH_URL=http://elasticsearch:9200
-          - ELASTICSEARCH_HOSTS=["http://elasticsearch:9200"]
-      ports:
-          - 5601:5601
+    image: docker.elastic.co/kibana/kibana:7.2.0
+    ports:
+      - "5601:5601"
+    restart: on-failure
+    depends_on:
+      - elasticsearch
 
   filebeat:
-      image: docker.elastic.co/beats/filebeat-oss:7.10.2
-      container_name: filebeat
-      user: root
-      volumes: 
-          - /var/lib/docker:/var/lib/docker:ro
-          - /var/run/docker.sock:/var/run/docker.sock
-          - ./filebeat.yml:/usr/share/filebeat/filebeat.yml
-      command: filebeat -e -strict.perms=false
+    image: docker.elastic.co/beats/filebeat:7.2.0
+    volumes:
+      - ./filebeat/filebeat.docker.yml:/usr/share/filebeat/filebeat.yml:ro # Configuration file
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro           # Docker logs
+      - /var/run/docker.sock:/var/run/docker.sock:ro                       # Additional information about containers
+      - ./filebeat/data:/usr/share/filebeat/data:rw                        # Persistence data
+    user: root                                                             # Allow access to log files and docker.sock
+    restart: on-failure
+    depends_on:
+      - logstash
       
