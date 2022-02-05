@@ -1,23 +1,24 @@
-version: '3.2'
+version: '3.0'
 
 services:
   equipment-api:
       image: equipment-api
       ports:
-          - 7001:7001
+          - 6001:6001
       environment:      
         - "SPRING_PROFILES_ACTIVE=docker"
 
   order-api:
       image: order-api
       ports:
-          - 9096:9096
+          - 6002:6002
       environment:      
-        - "SPRING_PROFILES_ACTIVE=local"
+        - "SPRING_PROFILES_ACTIVE=docker"
 
   order-consumer:
       image: order-consumer:0.0.1-SNAPSHOT
       ports:
-          - 9097:9097
+          - 6003:6003
       environment:      
-        - "SPRING_PROFILES_ACTIVE=local"
+        - "SPRING_PROFILES_ACTIVE=docker"
+        
