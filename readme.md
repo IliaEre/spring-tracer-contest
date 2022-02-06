@@ -20,7 +20,7 @@ Java, Spring Boot, Web, WebFlux, Kafka, ELK, Tracer with spring sleuth, Zipkin, 
 1. Local with Docker Desktop:
 `use runner/docker-desktop/build_and_run.sh`
 
-2. Minikube
+2. Minikube (WIP)  
 `use runner/minikube/build_and_run.sh`
 
 ### Scenario?   
@@ -35,12 +35,6 @@ Java, Spring Boot, Web, WebFlux, Kafka, ELK, Tracer with spring sleuth, Zipkin, 
 ---
 
 ### minikube: 
-
-Use with minikube: 
-// todo: 
-1. minikube start --extra-config=apiserver.service-node-port-range=80-30000  
-2. create deployments (each compose folder has a run file, just do it)  
-
 
 ---
 
