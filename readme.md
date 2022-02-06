@@ -20,7 +20,7 @@ Java, Spring Boot, Web, WebFlux, Kafka, ELK, Tracer with spring sleuth, Zipkin, 
 1. Local with Docker Desktop:
 `use runner/docker-desktop/build_and_run.sh`
 
-2. Minikube (WIP)
+2. Minikube (WIP)  
 `use runner/minikube/build_and_run.sh`
 
 ### Scenario?   
@@ -31,6 +31,10 @@ Java, Spring Boot, Web, WebFlux, Kafka, ELK, Tracer with spring sleuth, Zipkin, 
 2. go to http://localhost:6001/v1/equipment/ 
 3. use zipkin: http://localhost:9411/zipkin/
 4. find your trace with ELK
+
+---
+
+### minikube: 
 
 ---
 

@@ -7,9 +7,6 @@ spring:
   main:
     banner-mode: off
 
-# todo: json convertor
-
-
 springdoc:
   packages-to-scan: com.ere.psc
   paths-to-match: '/v1/**'

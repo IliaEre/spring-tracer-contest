@@ -6,14 +6,3 @@ spring:
     name: equipment-api
   main:
     banner-mode: off
-
-springdoc:
-  packages-to-scan: com.ere.psc
-  paths-to-match: '/v1/**'
-  api-docs:
-    path: /swagger-ui.html
-
-apidoc:
-  title: '@project.name@'
-  description: '@project.description@'
-  version: '@project.version@'

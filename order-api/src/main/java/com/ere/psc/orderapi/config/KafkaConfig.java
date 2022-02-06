@@ -2,6 +2,7 @@ package com.ere.psc.orderapi.config;
 
 import com.ere.psc.orderapi.model.Order;
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

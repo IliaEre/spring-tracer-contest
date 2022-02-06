@@ -22,7 +22,6 @@ public class OrderServiceFacade extends ClassLogger implements OrderService {
     public String create(Order order) {
         order.equipmentUuids()
                 .forEach(catalogService::findEquipmentById);
-
         return orderService.create(order);
     }
 

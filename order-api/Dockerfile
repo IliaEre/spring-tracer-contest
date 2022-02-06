@@ -1,5 +1,10 @@
+#
 # Build stage
-FROM maven:3.5-jdk-8 AS build
-COPY src /usr/src/app/src
-COPY pom.xml /usr/src/app
-RUN mvn spring-boot:build-image
+#
+FROM maven:3.8.4-openjdk-17 AS build
+COPY src /home/app/src
+COPY pom.xml /home/app
+RUN mvn -f /home/app/pom.xml clean package
+
+# Create image
+RUN mvn -f /home/app/pom.xml spring-boot:build-image

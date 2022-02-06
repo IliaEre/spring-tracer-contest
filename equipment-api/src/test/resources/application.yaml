@@ -6,14 +6,12 @@ spring:
   data:
     mongodb:
       database: skiclub
-      host: mongo
+      host: localhost
       port: 27017
 #endregion
 #region: trace
   zipkin:
-    base-url: http://zipkin:9411/
-    service:
-      name: equipment-api
+    enabled: false
 #endregion
 
 logging:

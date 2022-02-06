@@ -1,21 +1,21 @@
 server:
-  port: 7002
+  port: 6002
 
 integration:
   web:
-    url: 'http://localhost:9095'
+    url: 'http://equipment-api:6001'
 
 spring:
 #region: db
   data:
     mongodb:
       database: skiclub
-      host: localhost
+      host: mongo
       port: 27017
 #endregion
 #region: trace
   zipkin:
-    base-url: http://localhost:9411/
+    base-url: http://zipkin:9411/
     service:
       name: order-api
 #endregion
@@ -23,18 +23,14 @@ spring:
   kafka:
     admin:
       fail-fast: true
-    bootstrap-servers:
-      – http://localhost:29092
-      – http://localhost:39092
+    bootstrap-servers: http://kafka:9092
     producer:
       client-id: order-api
       acks: all
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       retries: 50
-      bootstrap-servers:
-        – http://localhost:29092
-        – http://localhost:39092
+      bootstrap-servers: http://kafka:9092
     template:
       default-topic: ski-orders
 #endregion
