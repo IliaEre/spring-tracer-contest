@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.5'
 
 services:
 
@@ -45,47 +45,85 @@ services:
     container_name: zipkin
     environment:
       - JAVA_OPTS=-Xms128m -Xmx256m -XX:+ExitOnOutOfMemoryError
+      - ZIPKIN_UI_LOGS_URL=http://localhost:5601/app/kibana#/discover?_a=(index:'logstash-*',query:(language:lucene,query:'{traceId}'))
     ports:
       - 9411:9411  
   
 # ELK 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.2.2
-    container_name: elasticsearch
-    environment:
-      - cluster.name=docker-cluster
-      - bootstrap.memory_lock=true
-      - xpack.security.enabled=false
-    volumes:
-      - esdata1:/usr/share/elasticsearch/data
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.2.0
     ports:
       - "9200:9200"
-      - "9300:9300"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
+    environment:
+      - "discovery.type=single-node"
+    volumes:
+      - ./elasticsearch/data:/usr/share/elasticsearch/data:rw              # Persistence data
 
   logstash:
-    image: docker.elastic.co/logstash/logstash:6.2.2
-    container_name: logstash
-    command: logstash -f /etc/logstash/conf.d/logstash.conf
-    volumes:
-      - ./config:/etc/logstash/conf.d
+    image: docker.elastic.co/logstash/logstash:7.2.0
     ports:
-      - "5001:5000"
-    links:
+      - "25826:25826"
+      - "5044:5044"
+    volumes:
+      - ./logstash/pipeline:/usr/share/logstash/pipeline:ro                # Pipeline configuration
+    restart: on-failure
+    depends_on:
       - elasticsearch
 
   kibana:
-    image: docker.elastic.co/kibana/kibana:6.2.2
-    container_name: kibana
-    environment:
-      - ELASTICSEARCH_URL=http://elasticsearch:9200
+    image: docker.elastic.co/kibana/kibana:7.2.0
     ports:
       - "5601:5601"
-    links:
+    restart: on-failure
+    depends_on:
       - elasticsearch
+
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:7.2.0
+    volumes:
+      - ./filebeat/filebeat.docker.yml:/usr/share/filebeat/filebeat.yml:ro # Configuration file
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro           # Docker logs
+      - /var/run/docker.sock:/var/run/docker.sock:ro                       # Additional information about containers
+      - ./filebeat/data:/usr/share/filebeat/data:rw                        # Persistence data
+      - /var/lib/docker:/var/lib/docker:ro
+      # - /var/run/docker.sock:/var/run/docker.sock
+      # - ./filebeat.yml:/usr/share/filebeat/filebeat.yml
+    command: filebeat -e -strict.perms=false
+    user: root                                                             # Allow access to log files and docker.sock
+    restart: on-failure
+    depends_on:
+      - logstash
+
+# services
+  equipment-api:
+      image: equipment-api
+      ports:
+          - 6001:6001
+      environment:      
+        - "SPRING_PROFILES_ACTIVE=docker"
+      labels:
+        collect_logs_with_filebeat: "true"
+        decode_log_event_to_json_object: "true"
+
+  order-api:
+      image: order-api
+      ports:
+          - 6002:6002
+      environment:      
+        - "SPRING_PROFILES_ACTIVE=docker"
+      labels:
+        collect_logs_with_filebeat: "true"
+        decode_log_event_to_json_object: "true"
+
+  order-consumer:
+      image: order-consumer:0.0.2-SNAPSHOT
+      ports:
+          - 6003:6003
+      environment:      
+        - "SPRING_PROFILES_ACTIVE=docker"      
+      labels:
+        collect_logs_with_filebeat: "true"
+        decode_log_event_to_json_object: "true"
 
 volumes:
   zookeeper_data:
