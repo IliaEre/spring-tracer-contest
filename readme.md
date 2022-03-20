@@ -35,7 +35,7 @@ Java, Spring Boot, Web, WebFlux, Kafka, ELK, Tracer with spring sleuth, Zipkin, 
 ---
 
 useful material:  
-0. Main idea by: [Source](https://cassiomolin.com/2019/06/30/log-aggregation-with-spring-boot-elastic-stack-and-docker/) 
+> Main idea by: [Source](https://cassiomolin.com/2019/06/30/log-aggregation-with-spring-boot-elastic-stack-and-docker/)  
 1. [Spring sleuth](https://spring.io/projects/spring-cloud-sleuth)
 2. [Kafka compose](https://github.com/conduktor/kafka-stack-docker-compose/blob/master/zk-single-kafka-single.yml) 
 3. [Kafka compose cluster](https://www.baeldung.com/ops/kafka-docker-setup)   
