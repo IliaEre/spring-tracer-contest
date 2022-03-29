@@ -1,4 +1,4 @@
-# Tracer contest
+# Tracing  contest
 
 If we are using Spring Framework, we can easily add tracing. 
 Follow next steps:  
@@ -6,7 +6,10 @@ Follow next steps:
 2. add zipkin properties
 3. run ELK + simple settings
 
-#### version 0.0.4
+
+#### version 0.0.5
+
+![Scenario](.images/image.png)
 
 Demo with:
 
