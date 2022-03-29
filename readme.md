@@ -7,7 +7,7 @@ Follow next steps:
 3. run ELK + simple settings
 
 
-![Scenario](.images/image.png)
+![Scenario](.images/image2.png)
 
 Demo with technologies:
 `
