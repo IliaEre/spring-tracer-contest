@@ -1,21 +1,20 @@
-# Tracing  contest
+# Spring tracing contest
 
-If we are using Spring Framework, we can easily add tracing. 
+> If we are using Spring Framework, we can easily add tracing. 
 Follow next steps:  
 1. add sleught
 2. add zipkin properties
 3. run ELK + simple settings
 
 
-#### version 0.0.5
-
 ![Scenario](.images/image.png)
 
-Demo with:
-
+Demo with technologies:
 `
 Java, Spring Boot, Web, WebFlux, Kafka, ELK, Tracer with spring sleuth, Zipkin, Jib.
 `
+
+version 0.0.5
 
 --- 
 
